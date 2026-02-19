@@ -1,0 +1,32 @@
+title: "My Blog"
+description: "여행, 음식, 공부에 대한 블로그"
+url: ""
+baseurl: ""
+permalink: /:year/:month/:day/:title/
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+navigation:
+  - title: 홈
+    url: /
+  - title: 여행
+    url: /travel/
+  - title: 음식
+    url: /food/
+  - title: 공부
+    url: /study/
+  - title: About
+    url: /about/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      ai_generated: false

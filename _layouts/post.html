@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      {{ page.title }}
+      {% if page.ai_generated %}
+        <span class="badge-ai">AI Generated</span>
+      {% endif %}
+    </h1>
+    {% if page.subtitle %}
+      <p class="post-subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %m월 %d일" }}</time>
+      {% if page.category %}
+        <span class="post-category">
+          {% case page.category %}
+            {% when 'travel' %}여행
+            {% when 'food' %}음식
+            {% when 'study' %}공부
+          {% endcase %}
+        </span>
+      {% endif %}
+    </div>
+    {% if page.tags.size > 0 %}
+      <div class="post-tags">
+        {% for tag in page.tags %}
+          <span class="tag">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>

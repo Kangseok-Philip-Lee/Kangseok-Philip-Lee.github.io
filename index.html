@@ -1,0 +1,42 @@
+---
+layout: default
+title: 홈
+---
+
+{% assign categories = "travel,food,study" | split: "," %}
+{% assign category_names = "여행,음식,공부" | split: "," %}
+
+{% for cat in categories %}
+  {% assign cat_posts = site.posts | where: "category", cat %}
+  {% if cat_posts.size > 0 %}
+    <section class="category-section">
+      <div class="category-section-header">
+        <h2 class="category-section-title">{{ category_names[forloop.index0] }}</h2>
+        <a class="category-section-more" href="{{ '/' | append: cat | append: '/' | relative_url }}">전체보기 &rarr;</a>
+      </div>
+      <div class="card-grid">
+        {% for post in cat_posts limit:4 %}
+        <a class="card" href="{{ post.url | relative_url }}">
+          <div class="card-body">
+            <h3 class="card-title">
+              {{ post.title }}
+              {% if post.ai_generated %}<span class="badge-ai">AI Generated</span>{% endif %}
+            </h3>
+            {% if post.subtitle %}<p class="card-subtitle">{{ post.subtitle }}</p>{% endif %}
+            <div class="card-meta">
+              <time>{{ post.date | date: "%Y.%m.%d" }}</time>
+              {% if post.tags.size > 0 %}
+                <span class="card-tags">{% for tag in post.tags limit:3 %}#{{ tag }} {% endfor %}</span>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+{% endfor %}
+
+{% if site.posts.size == 0 %}
+  <p class="search-no-results">아직 포스트가 없습니다.</p>
+{% endif %}
